@@ -1,14 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Langar&display=swap");
+
 * {
     list-style-type: none;
     text-decoration: none;
+    box-sizing: border-box;
 }
-*::selection{
+*::selection {
     background: #00ee9f;
     color: #251e85;
 }
 
 input,
-button{
+button {
     border: none;
     outline: none;
 }
@@ -28,4 +31,8 @@ html {
 *::after {
     box-sizing: border-box;
     margin: 0;
+}
+
+.icon {
+    cursor: pointer;
 }

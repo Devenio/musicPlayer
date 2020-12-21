@@ -4,6 +4,13 @@
         <Nuxt />
         <footer>
             <div class="social-media-icons">
+                <i class="fa fa-instagram fa-2x" title="instagram"></i>
+                <i class="fa fa-twitter fa-2x" title="twitter"></i>
+                <i class="fa fa-youtube fa-2x" title="youtube"></i>
+                <i class="fa fa-telegram fa-2x" title="telegram"></i>
+                <i class="fa fa-facebook fa-2x" title="facebook"></i>
+                <i class="fa fa-whatsapp fa-2x" title="whatsapp"></i>
+                <i class="fa fa-github fa-2x" title="github"></i>
             </div>
             <div class="copy-right">
                 &copy; 2020 - 2021, Saturday, December 19, Nima Shahbazi
@@ -40,7 +47,34 @@ footer {
         justify-content: center;
         align-items: center;
     }
-    .social-media-icons{
-    }
+}
+
+.fa {
+    margin: 0px 10px;
+    cursor: pointer;
+}
+.fa-instagram:hover {
+    color: #8246b5;
+}
+.fa-twitter:hover {
+    color: #1d9ceb;
+}
+.fa-youtube:hover {
+    color: #990000;
+}
+.fa-telegram:hover {
+    color: #2ea1d7;
+}
+.fa-facebook:hover {
+    color: #3d548e;
+}
+.fa-whatsapp:hover {
+    color: #33d24f;
+}
+.fa-github:hover {
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    color: #000;
 }
 </style>

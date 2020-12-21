@@ -22,6 +22,7 @@
                     <img src="/icons/light-search.png" class="search-icon" />
                 </button>
             </div>
+            <div class="loading" v-if="isLoading"></div>
         </div>
     </div>
 </template>
@@ -32,28 +33,35 @@ import axios from "axios"
 export default {
     data() {
         return {
-            searchedString: ""
+            searchedString: "",
+            isLoading: false
         }
     },
     mounted() {
-        let searchBoxWrapper = document.querySelector(".search-wrapper")
-        let searchBox = searchBoxWrapper.querySelector(".search-box")
-        let homeBackground = document.querySelector(".home-background")
+        setTimeout(() => {
+            let searchBoxWrapper = document.querySelector(".search-wrapper")
+            let searchBox = document.querySelector(".search-box")
+            let homeBackground = document.querySelector(".home-background")
+            let loading = this.isLoading
+                ? document.querySelector(".loading")
+                : ""
 
-        searchBox.addEventListener("focus", () => {
-            searchBoxWrapper.style = `
+            searchBox.addEventListener("focus", () => {
+                searchBoxWrapper.style = `
                 box-shadow: 0px 0px 40px 15px #130f4a; 
                 transform: scale(1.2,1.2)`
-            homeBackground.style = "filter: blur(5px)"
-        })
-        searchBox.addEventListener("blur", () => {
-            searchBoxWrapper.style = "box-shadow: none"
-            homeBackground.style = "filter: none"
-        })
+                homeBackground.style = "filter: blur(5px)"
+            })
+            searchBox.addEventListener("blur", () => {
+                searchBoxWrapper.style = "box-shadow: none"
+                homeBackground.style = "filter: none"
+            })
+        }, 500)
     },
     methods: {
         getData() {
             this.editStylesInSearch()
+            this.isLoading = true
             let axios = require("axios").default
             let options = {
                 method: "GET",
@@ -68,15 +76,17 @@ export default {
             axios
                 .request(options)
                 .then(response => {
+                    this.isLoading = false
+                    this.$emit("data", response.data)
+                    this.$router.push('/result')
                     console.log(response.data)
                 })
                 .catch(error => {
                     console.error(error)
                 })
         },
-        editStylesInSearch(){
+        editStylesInSearch() {
             let searchBox = document.querySelector(".search-box")
-
             searchBox.blur()
         }
     }
@@ -99,7 +109,7 @@ export default {
         background-image: linear-gradient(
             178.2deg,
             #0c0b20 5.2%,
-            rgba(255, 255, 255, 0) 52.3%,
+            #ffffff00 52.3%,
             #0c0b20 95.7%
         );
         box-sizing: border-box;
@@ -114,9 +124,19 @@ export default {
             width: 50%;
             font-size: 2.7rem;
             text-align: center;
-            font-family: 'Shadows Into Light', cursive;
+            font-family: "Shadows Into Light", cursive;
             color: #fff;
             font-weight: bold;
+        }
+        .loading {
+            margin: 20px;
+            width: 40px;
+            height: 40px;
+            border-top: 5px solid black;
+            border-right: 5px solid black;
+            border-radius: 100%;
+            animation: linear loading 1.5s infinite;
+            border-color: purple;
         }
         .search-wrapper {
             width: 60%;
@@ -154,6 +174,17 @@ export default {
                 }
             }
         }
+    }
+}
+
+@keyframes loading {
+    from {
+        transform: rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+        filter: hue-rotate(360deg);
     }
 }
 </style>
