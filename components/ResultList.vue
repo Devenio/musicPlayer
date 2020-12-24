@@ -1,21 +1,33 @@
 <template>
-    <div class="result">
-        <font-awesome-icon
-            icon="play"
-            size="2x"
-            style="color: #fff;"
-            class="icon"
-        />
+    <div class="result" id="result">
+        <img :src="img" width="100%" height="100%" />
+        <div class="icon">
+            <font-awesome-icon icon="play" size="2x" id="icon" />
+        </div>
         <div class="detail">
-            <h2>{{ trackName }}</h2>
-            <h4>{{ artist }}</h4>
+            <h3>{{ trackName }}</h3>
+            <h6>{{ artist }}</h6>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props: ["trackName", "artist"]
+    props: {
+        trackName: {
+            required: true,
+            type: String
+        },
+        artist: {
+            required: true,
+            type: String
+        },
+        img: {
+            required: false,
+            type: String,
+            default: '/images/img3.jpg"'
+        }
+    }
 }
 </script>
 
@@ -23,7 +35,7 @@ export default {
 .result {
     width: 250px;
     height: 250px;
-    margin: 10px 0px;
+    margin: 15px 5px;
     position: relative;
     cursor: pointer;
     box-shadow: 0px 0px 8px 0px #000;
@@ -31,48 +43,74 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url("/images/img3.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
     transition: all 1s;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+        position: absolute;
+        bottom: 0;
+        object-fit: cover;
+        object-position: center;
+    }
     .icon {
-        margin-bottom: 60px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        background: linear-gradient(45deg, #130f4aa8, #ffffff62);
         display: none;
         transition: all 1s;
-    }
-    &:hover {
-        background: linear-gradient(45deg, #130f4aa8, #ffffff62),
-            url("/images/img3.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
+        #icon {
+            color: #130f4a;
+            margin: auto;
+        }
     }
     &:hover .icon {
-        display: block;
+        display: flex;
     }
     &:hover .detail {
-        height: 60px;
+        height: 45px;
     }
     .detail {
         position: absolute;
         bottom: 0;
         width: 100%;
         height: 0px;
-        background: linear-gradient(to right, #033cb8, #a1c7f1);
+        background-image: radial-gradient(
+            circle farthest-corner at 22.4% 21.7%,
+            rgba(4, 189, 228, 1) 0%,
+            rgba(2, 83, 185, 1) 100.2%
+        );
         transition: 1s;
+        color: #2b2e30;
         text-align: center;
-        line-height: 1.5rem;
+        box-shadow: 0px -5px 5px 0px #1b1b1b, 0px -10px 50px 0px #1b1b1b;
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         overflow: hidden;
-        h2,
-        h4 {
-            display: inline-block;
-            font-family: "Shadows Into Light", cursive;
-            color: #130f4a;
+        z-index: 15;
+        h6,
+        h3 {
+            font-family: "Andika New Basic", sans-serif;
+            transition: display 1s;
+        }
+        h3 {
+            display: none;
+        }
+        &:hover {
+            height: 70%;
+            line-height: 2rem;
+        }
+        &:hover h3 {
+            display: inline;
+            font-size: 1.4rem;
+        }
+        &:hover h6 {
+            font-size: 1rem;
         }
     }
 }

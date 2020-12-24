@@ -77,12 +77,12 @@ export default {
                 .request(options)
                 .then(response => {
                     this.isLoading = false
-                    this.$emit("data", response.data)
-                    this.$router.push('/result')
-                    console.log(response.data)
+                    this.$router.push("/result")
+                    this.$store.dispatch('setApiData', response.data)
+                    console.log('response', response.data)
                 })
                 .catch(error => {
-                    console.error(error)
+                    console.error('error', error)
                 })
         },
         editStylesInSearch() {

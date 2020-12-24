@@ -4,16 +4,16 @@
         <nav>
             <ul class="navbar">
                 <nuxt-link to="/" class="navbar-item">Home</nuxt-link>
-                <nuxt-link to="/playList" class="navbar-item"
-                    >playList</nuxt-link
-                >
+                <nuxt-link to="/playList" class="navbar-item">
+                    playList
+                </nuxt-link>
             </ul>
         </nav>
     </div>
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style lang="scss" scoped>
