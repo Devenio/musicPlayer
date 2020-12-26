@@ -59,32 +59,32 @@ export default {
         }, 500)
     },
     methods: {
-        getData() {
-            this.editStylesInSearch()
-            this.isLoading = true
-            let axios = require("axios").default
-            let options = {
-                method: "GET",
-                url: "https://deezerdevs-deezer.p.rapidapi.com/search",
-                params: { q: this.searchedString },
-                headers: {
-                    "x-rapidapi-key":
-                        "469c3f558bmsh958b0217735e134p1e18ecjsn3de8cc22d333",
-                    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com"
-                }
-            }
-            axios
-                .request(options)
-                .then(response => {
-                    this.isLoading = false
-                    this.$router.push("/result")
-                    this.$store.dispatch('setApiData', response.data)
-                    console.log('response', response.data)
-                })
-                .catch(error => {
-                    console.error('error', error)
-                })
-        },
+        // getData() {
+        //     this.editStylesInSearch()
+        //     this.isLoading = true
+        //     let axios = require("axios").default
+        //     let options = {
+        //         method: "GET",
+        //         url: "https://deezerdevs-deezer.p.rapidapi.com/search",
+        //         params: { q: this.searchedString },
+        //         headers: {
+        //             "x-rapidapi-key":
+        //                 "469c3f558bmsh958b0217735e134p1e18ecjsn3de8cc22d333",
+        //             "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com"
+        //         }
+        //     }
+        //     axios
+        //         .request(options)
+        //         .then(response => {
+        //             this.isLoading = false
+        //             this.$router.push("/result")
+        //             this.$store.dispatch('setApiData', response.data)
+        //             console.log('response', response.data)
+        //         })
+        //         .catch(error => {
+        //             console.error('error', error)
+        //         })
+        // },
         editStylesInSearch() {
             let searchBox = document.querySelector(".search-box")
             searchBox.blur()

@@ -1,4 +1,5 @@
 export const state = {
+    // api data
     musicData: ''
 }
 
@@ -16,6 +17,7 @@ export const actions = {
 
 export const getters = {
     musicData: (state) => {
+        // return api data
         return state.musicData
     }
 }
