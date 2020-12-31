@@ -1,5 +1,10 @@
 <template>
     <div class="container">
+        <Artist
+            :img="trackData.imgSrc"
+            :artist="trackData.artist"
+            :rank="trackData.rank"
+        />
         <div class="slide">
             <div class="pre">
                 <font-awesome-icon
@@ -59,25 +64,22 @@
                 />
             </div>
             <div class="icon previous-music">
-                <font-awesome-icon
-                    icon="backward"
-                    size="lg"
-                    @click="previousTrack"
-                />
+                <font-awesome-icon icon="backward" size="lg" @click="pre10s" />
             </div>
             <div class="icon play" @click="togglePlayIcon">
                 <font-awesome-icon icon="play" size="2x" v-if="!isPlaying" />
                 <font-awesome-icon icon="pause" size="2x" v-if="isPlaying" />
             </div>
             <div class="icon next-music">
-                <font-awesome-icon
-                    icon="forward"
-                    size="lg"
-                    @click="nextTrack"
-                />
+                <font-awesome-icon icon="forward" size="lg" @click="next10s" />
             </div>
-            <div class="icon share">
-                <font-awesome-icon icon="share" size="lg" />
+            <div class="icon share" @click="isLike = !isLike">
+                <font-awesome-icon
+                    icon="heart"
+                    :style="{ color: isLike ? '#e93d3a' : '#fff' }"
+                    class="heart"
+                    size="lg"
+                />
             </div>
         </div>
         <audio
@@ -98,10 +100,12 @@ export default {
                 trackName: "",
                 artist: "",
                 track: "",
-                currentTime: ""
+                currentTime: "00:00",
+                rank: ""
             },
             volume: "up",
-            isPlaying: false
+            isPlaying: false,
+            isLike: false
         };
     },
     created() {
@@ -112,11 +116,11 @@ export default {
         this.trackData.trackName = data.album.title;
         this.trackData.artist = data.artist.name;
         this.trackData.track = data.preview;
+        this.trackData.rank = data.rank;
         // calc music time
         this.trackData.duration = this.secondsToMinutes(data.duration);
     },
     mounted() {
-        console.log("mounted");
         setTimeout(() => {
             let progressBar = document.querySelector(".progressBar");
 
@@ -175,9 +179,9 @@ export default {
             audio.volume = volume;
         },
         togglePlayIcon() {
-            this.isPlaying = !this.isPlaying;
             let audio = document.querySelector("audio");
-            this.isPlaying ? audio.play() : audio.pause();
+            !this.isPlaying ? audio.play() : audio.pause();
+            this.isPlaying = !this.isPlaying;
         },
         nextTrack() {
             let id = Number(this.$route.params.id);
@@ -202,6 +206,14 @@ export default {
             return seconds < 10
                 ? "0" + minutes + ":" + "0" + seconds
                 : "0" + minutes + ":" + seconds;
+        },
+        pre10s() {
+            let audio = document.querySelector("audio");
+            audio.currentTime -= 10;
+        },
+        next10s() {
+            let audio = document.querySelector("audio");
+            audio.currentTime += 10;
         }
     }
 };
@@ -210,7 +222,7 @@ export default {
 <style lang="scss" scoped>
 .container {
     width: 100%;
-    height: 100%;
+    height: 1200px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -222,13 +234,14 @@ export default {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
+        // margin-top: 30px;
         // track picture styles
         .cover {
             width: 400px;
             height: 400px;
             border-radius: 50%;
             overflow: hidden;
-            box-shadow: 0px 0px 5px 1px #000, 0 0 5px 2px #ddd;
+            box-shadow: 0px 0px 0px 7px #99999948;
             position: relative;
             .duration {
                 position: absolute;
@@ -259,6 +272,8 @@ export default {
         justify-content: center;
         align-items: center;
         cursor: pointer;
+        // background-image: linear-gradient(90deg, red, blue);
+        // background-clip: text;
     }
     // track name and artist styles
     .track-detail {
@@ -346,6 +361,9 @@ export default {
                 border-radius: 20px;
                 cursor: pointer;
             }
+        }
+        .heart {
+            transition: all ease 200ms;
         }
     }
 }

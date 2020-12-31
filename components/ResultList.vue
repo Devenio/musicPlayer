@@ -35,7 +35,7 @@ export default {
 .result {
     width: 250px;
     height: 250px;
-    margin: 15px 5px;
+    margin: 20px 5px;
     position: relative;
     cursor: pointer;
     box-shadow: 0px 0px 8px 0px #000;

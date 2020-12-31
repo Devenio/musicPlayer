@@ -3,10 +3,10 @@
         <img
             :src="imgSrc"
             class="background-image"
-            width="100%"
-            height="100%"
+            width="105%"
+            height="105%"
         />
-        <SingleTrack />
+        <SingleTrack class="track" />
     </div>
 </template>
 
@@ -14,24 +14,31 @@
 export default {
     data() {
         return {
-            id: this.$route.params.id
-        }
+            id: this.$route.params.id,
+            musicId: this.$store.getters.currentMusicId
+        };
     },
     computed: {
         imgSrc() {
-            return this.$store.getters.musicData.data[this.id].album.cover_xl
+            return this.$store.getters.musicData.data[this.id].album.cover_xl;
+        },
+        albumId(){
+            return this.$store.getters.musicData.data[this.id].album.id;
         }
     },
+    layout: "track",
     mounted() {
-        console.log(this.$store.getters.musicData, this.id)
-    }
-}
+        if(this.albumId){
+            this.$store.dispatch('setAlbum', this.albumId)
+        }
+    },
+};
 </script>
 
 <style lang="scss" scoped>
 .container {
     width: 100%;
-    min-height: 90vh;
+    min-height: 100vh;
     position: relative;
     background: #0c0b2080;
     .background-image {
@@ -47,6 +54,7 @@ export default {
             #0c0b20 95.7%
         );
         background-attachment: fixed;
+        transform: translate(-5%, - 5%);
     }
 }
 </style>

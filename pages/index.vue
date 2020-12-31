@@ -28,71 +28,87 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
     data() {
         return {
             searchedString: "",
-            isLoading: false
-        }
+            isLoading: false,
+            errorMsg: "",
+            hasError: false
+        };
     },
     mounted() {
         setTimeout(() => {
-            let searchBoxWrapper = document.querySelector(".search-wrapper")
-            let searchBox = document.querySelector(".search-box")
-            let homeBackground = document.querySelector(".home-background")
+            let searchBoxWrapper = document.querySelector(".search-wrapper");
+            let searchBox = document.querySelector(".search-box");
+            let homeBackground = document.querySelector(".home-background");
             let loading = this.isLoading
                 ? document.querySelector(".loading")
-                : ""
+                : "";
 
             searchBox.addEventListener("focus", () => {
                 searchBoxWrapper.style = `
                 box-shadow: 0px 0px 40px 15px #130f4a; 
-                transform: scale(1.2,1.2)`
-                homeBackground.style = "filter: blur(5px)"
-            })
+                transform: scale(1.2,1.2)`;
+                homeBackground.style = "filter: blur(5px)";
+            });
             searchBox.addEventListener("blur", () => {
-                searchBoxWrapper.style = "box-shadow: none"
-                homeBackground.style = "filter: none"
-            })
-        }, 500)
+                searchBoxWrapper.style = "box-shadow: none";
+                homeBackground.style = "filter: none";
+            });
+        }, 500);
     },
     methods: {
-        // getData() {
-        //     this.editStylesInSearch()
-        //     this.isLoading = true
-        //     let axios = require("axios").default
-        //     let options = {
-        //         method: "GET",
-        //         url: "https://deezerdevs-deezer.p.rapidapi.com/search",
-        //         params: { q: this.searchedString },
-        //         headers: {
-        //             "x-rapidapi-key":
-        //                 "469c3f558bmsh958b0217735e134p1e18ecjsn3de8cc22d333",
-        //             "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com"
-        //         }
-        //     }
-        //     axios
-        //         .request(options)
-        //         .then(response => {
-        //             this.isLoading = false
-        //             this.$router.push("/result")
-        //             this.$store.dispatch('setApiData', response.data)
-        //             console.log('response', response.data)
-        //         })
-        //         .catch(error => {
-        //             console.error('error', error)
-        //         })
-        // },
+        getData() {
+            // this.editStylesInSearch();
+            let input = document.querySelector(".search-box");
+            if (this.searchedString.length == 0) { // check the input value
+                input.style.border = "2px solid #f00";
+                input.style.backgroundColor = "rgba(255, 168, 168, 0.98)";
+                return; // stop this method if the input value was empty
+            }
+            input.style.backgroundColor = "#fff";
+            input.style.border = "2px solid #130f4a";
+            this.isLoading = true;
+            // start getting data from api
+            let axios = require("axios").default;
+            let options = {
+                method: "GET",
+                url: "https://deezerdevs-deezer.p.rapidapi.com/search",
+                params: { q: this.searchedString },
+                headers: {
+                    "x-rapidapi-key":
+                        "469c3f558bmsh958b0217735e134p1e18ecjsn3de8cc22d333",
+                    "x-rapidapi-host": "deezerdevs-deezer.p.rapidapi.com"
+                }
+            };
+            axios
+                .request(options)
+                .then(response => {
+                    if (response.data.data.length == 0) {
+                        this.isLoading = false;
+                        return;
+                    }
+                    this.isLoading = false;
+                    this.$router.push("/result");
+                    this.$store.dispatch("setApiData", response.data);
+                    console.log("response", response.data);
+                })
+                .catch(error => {
+                    console.error("error", error);
+                });
+        },
         editStylesInSearch() {
-            let searchBox = document.querySelector(".search-box")
-            searchBox.blur()
+            let searchBox = document.querySelector(".search-box");
+            searchBox.blur();
         }
     }
-}
+};
 </script>
 <style lang="scss" scoped>
+//error message style
 .home-container {
     width: 100%;
     object-fit: cover;
