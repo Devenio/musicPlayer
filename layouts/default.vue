@@ -1,7 +1,7 @@
 <template>
     <div>
         <appHeader />
-        <Nuxt />
+        <Nuxt keep-alive/>
         <footer>
             <div class="social-media-icons">
                 <i class="fa fa-instagram fa-2x" title="instagram"></i>

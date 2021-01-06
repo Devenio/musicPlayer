@@ -7,6 +7,8 @@
     list-style-type: none;
     text-decoration: none;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #1e2335 #17306679;
 }
 *::selection {
     background: #00ee9f;
