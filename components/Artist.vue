@@ -70,7 +70,7 @@ export default {
     font-family: "Roboto", sans-serif;
 }
 .container {
-    width: 70%;
+    width: 800px;
     height: 100px;
     margin-top: 30px;
     display: flex;
@@ -100,6 +100,8 @@ export default {
             align-items: flex-start;
             justify-content: space-evenly;
             flex-direction: column;
+            margin-left: 15px;
+            width:max-content;
             small {
                 color: #e93d3a;
                 cursor: pointer;

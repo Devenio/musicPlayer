@@ -29,16 +29,21 @@
             <div class="img"></div>
         </div>
         <div class="trackList">
-            <AlbumTracks />
+            <AlbumTracks
+                v-for="(track, index) in album.tracks"
+                :key="track.id"
+                :duration="album.tracks[index].duration"
+                :title="album.tracks[index].title"
+                :rank="album.tracks[index].rank"
+                :imageSrc="album.imgSrc"
+                :id="album.tracks[index].id"
+            />
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {};
-    },
     layout: "track",
     computed: {
         album() {
@@ -57,9 +62,8 @@ export default {
         }
     },
     mounted() {
-        console.log(this.album);
-        let imgEl = document.querySelector('.img')
-        imgEl.style = `background-image: url('${this.album.imgSrc}')`
+        let imgEl = document.querySelector(".img");
+        imgEl.style = `background-image: url('${this.album.imgSrc}')`;
     },
     methods: {
         setDuration(seconds) {
@@ -143,6 +147,19 @@ p {
             color: #ccc;
             line-height: 2rem;
         }
+    }
+    .trackList{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        background-image: url("/images/img8.jpg");
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center;
     }
 }
 

@@ -7,7 +7,7 @@ export const state = () => {
         // my track id to get complete data from API
         currentMusicId: "",
         // artist album
-        album: null
+        album: null,
     };
 };
 

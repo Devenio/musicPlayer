@@ -24,7 +24,7 @@ nav {
     justify-content: center;
     align-items: center;
     background-color: #0c0b20;
-    box-shadow: 0px 9px 8px 0px #9f9f9f;
+    box-shadow: 0px 9px 8px 0px #9f9f9f;;
     .navbar {
         max-width: 100%;
         height: inherit;
