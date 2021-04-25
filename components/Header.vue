@@ -4,9 +4,9 @@
         <nav>
             <ul class="navbar">
                 <nuxt-link to="/" class="navbar-item">Home</nuxt-link>
-                <nuxt-link to="/playList" class="navbar-item">
+                <!-- <nuxt-link to="/playList" class="navbar-item">
                     playList
-                </nuxt-link>
+                </nuxt-link> -->
             </ul>
         </nav>
     </div>

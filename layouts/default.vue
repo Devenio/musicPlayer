@@ -1,7 +1,7 @@
 <template>
     <div>
         <appHeader />
-        <Nuxt keep-alive/>
+        <Nuxt keep-alive />
         <footer>
             <div class="social-media-icons">
                 <i class="fa fa-instagram fa-2x" title="instagram"></i>
@@ -16,17 +16,44 @@
                 &copy; 2020 - 2021, Saturday, December 19, Nima Shahbazi
             </div>
         </footer>
+
+        <!-- Modal -->
+        <div class="modal" id="modal">
+            <i class="fas fa-exclamation-circle"></i>
+            hey! this site is built just for desktop size not mobile size. so i
+            know that. have a nice time.
+        </div>
     </div>
 </template>
 
 <script>
-import Header from "@/components/Header.vue"
+import Header from "@/components/Header.vue";
 
 export default {
+    data() {
+        return {
+            showedModal: false
+        };
+    },
     components: {
         appHeader: Header
+    },
+    mounted() {
+        const modal = document.querySelector("#modal");
+        setTimeout(() => {
+            if (!this.showedModal) {
+                modal.style = "top: 20px;";
+            }
+        }, 1000);
+
+        setTimeout(() => {
+            if (!this.showedModal) {
+                modal.style = "top: -100%;";
+                this.showedModal = true;
+            }
+        }, 7000);
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -52,29 +79,23 @@ footer {
 .fa {
     margin: 0px 10px;
     cursor: pointer;
+    &:hover {
+        opacity: 0.6;
+    }
 }
-.fa-instagram:hover {
-    color: #8246b5;
-}
-.fa-twitter:hover {
-    color: #1d9ceb;
-}
-.fa-youtube:hover {
-    color: #990000;
-}
-.fa-telegram:hover {
-    color: #2ea1d7;
-}
-.fa-facebook:hover {
-    color: #3d548e;
-}
-.fa-whatsapp:hover {
-    color: #33d24f;
-}
-.fa-github:hover {
-    border-radius: 50%;
-    border: none;
-    background: #fff;
-    color: #000;
+
+.modal {
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #000;
+    background-color: #fff;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
+    font-weight: bold;
+    position: fixed;
+    top: -100%;
+    left: 20px;
+    border-radius: 10px;
+    transition: all 1s;
 }
 </style>
